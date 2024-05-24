@@ -20,7 +20,8 @@
   "license": "MIT",
   "scripts": {
     "build": "swc src --out-dir dist",
-    "format": "prettier --write src/**/*.ts"
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts"
   },
   "dependencies": {
     "node-fetch": "3.3.2"
