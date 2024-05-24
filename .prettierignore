@@ -1,0 +1,7 @@
+.env
+.env.example
+dist/*
+.cache
+.next
+node_modules
+*.esm.js
