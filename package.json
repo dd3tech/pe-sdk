@@ -1,0 +1,33 @@
+{
+  "name": "pe-sdk",
+  "version": "1.0.0",
+  "description": "The official Typescript SDK for the Price Engine API",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dd3tech/pe-sdk"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "Price Engine",
+    "Comparables",
+    "Price Predictor"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "swc src --out-dir dist",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "dependencies": {
+    "node-fetch": "3.3.2"
+  },
+  "devDependencies": {
+    "@swc/cli": "0.3.12",
+    "@swc/core": "1.5.7",
+    "prettier": "3.2.5"
+  }
+}
