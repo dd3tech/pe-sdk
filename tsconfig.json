@@ -1,0 +1,23 @@
+{
+  "include": ["src", "tests"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es2020",
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": true,
+    "baseUrl": "./",
+    "paths": {
+      "@pe/*": ["src/*"]
+    },
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
+}
