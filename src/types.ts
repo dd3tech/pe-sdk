@@ -1,9 +1,6 @@
 export type PriceEngineVersion = 'v8' | 'v9'
 
-/**
- * Appraisals types
- */
-
+/** Appraisals types */
 export type Comparable = {
   id?: string
   urlAd?: string
@@ -18,7 +15,7 @@ export type Comparable = {
   dissimilarityToTarget?: number
 }
 
-export interface AppraisalResponse {
+export interface AppraisalRequestOutput {
   value: number
   valuePerSqm: number
   upperValueRangePerSqm: number
@@ -56,7 +53,7 @@ export interface DevelopmentAmenities {
   hasGarden: boolean
 }
 
-export type AppraisalPayload = {
+export type AppraisalRequestInput = {
   latitude: number
   longitude: number
   lotSurface: number
@@ -76,4 +73,23 @@ export type AppraisalPayload = {
   m2PrivateTerrace?: number
   hasView?: number
   developmentAmenities?: DevelopmentAmenities
+}
+
+/** Report types */
+
+export type AppraisalReportRequestInput = Omit<
+  AppraisalRequestInput,
+  'appraisalType'
+>
+
+export type AppraisalReportRequestOutput = {
+  appraisalRent: AppraisalRequestOutput
+  appraisalSale: AppraisalRequestOutput
+  property: AppraisalRequestInput
+  capitalGain: {
+    currentCapGain: number
+    capGainTimeSeries: Record<string, number>
+    currentPrice: number
+    m2PricePerQuarter: Record<string, number>
+  }
 }
