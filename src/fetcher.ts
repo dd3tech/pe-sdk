@@ -65,6 +65,7 @@ export class Base {
   ): Promise<T> {
     const url: string = this.getURL(endpoint)
     const headers = {
+      ...options.headers,
       Authorization: this.getAuthorizationHeader(),
       'Content-Type': 'application/json'
     }
