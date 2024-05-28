@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/dd3tech/pe-sdk/compare/v1.0.0...v1.0.1) (2024-05-28)
+
+
+### Bug Fixes
+
+* change name to pe-sdk ([cc14653](https://github.com/dd3tech/pe-sdk/commit/cc1465327f0eec16a0c8739b5732eaf8c6c6c190))
+
 # 1.0.0 (2024-05-28)
 
 
