@@ -14,7 +14,7 @@ export type AppraisalReportRequestOutput = {
     lowerValueRange: number
     comparables: any[]
   }
-  appraisalSale: {
+  appraisalSale: AppraisalRequestOutput
     value: number
     valuePerSqm: number
     upperValueRangePerSqm: number
