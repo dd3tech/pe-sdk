@@ -39,7 +39,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "isomorphic-unfetch": "^4.0.2"
+    "isomorphic-unfetch": "4.0.2"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
