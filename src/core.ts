@@ -1,4 +1,4 @@
-import { ClientOptions, Base } from './fetcher'
+import { ClientOptions, BaseFetcher } from './fetcher'
 import {
   AppraisalReportRequestInput,
   AppraisalReportRequestOutput,
@@ -16,7 +16,7 @@ export class PriceEngine extends BaseFetcher {
     super(props)
   }
 
-  public async appraisal(
+  public async getAppraisal(
     request: AppraisalRequestInput
   ): Promise<AppraisalRequestOutput> {
     return this.request(`/${this.resourceName}/`, {
@@ -25,7 +25,7 @@ export class PriceEngine extends BaseFetcher {
     })
   }
 
-  public async appraisalReport(
+  public async getAppraisalReport(
     request: AppraisalReportRequestInput
   ): Promise<AppraisalReportRequestOutput> {
     return this.request(`/${this.resourceName}/report`, {
