@@ -9,7 +9,9 @@ import type {
   AppraisalReportRequestOutput,
   AppraisalRequestInput,
   AppraisalRequestInputVariable,
-  AppraisalRequestOutput
+  AppraisalInputCoverage,
+  AppraisalRequestOutput,
+  AppraisalOutputCoverage
 } from './types'
 
 /*
@@ -18,6 +20,15 @@ import type {
 export class PriceEngine extends BaseFetcher {
   constructor(props: ClientOptions) {
     super(props)
+  }
+
+  public async getAppraisalCoverage(
+    request: AppraisalInputCoverage
+  ): Promise<AppraisalOutputCoverage> {
+    return this.request(`/${API_RESOURCES_PATH.APPRAISALS}/coverage`, {
+      method: 'POST',
+      body: JSON.stringify(request)
+    })
   }
 
   public async getAppraisal(

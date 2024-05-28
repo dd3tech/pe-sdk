@@ -80,6 +80,16 @@ export type AppraisalRequestInputVariable = Omit<
   'appraisalType' | 'propertyType'
 >
 
+export type AppraisalInputCoverage = {
+  latitude: number
+  longitude: number
+}
+
+export interface AppraisalOutputCoverage {
+  hasCoverage: boolean
+  cvegeo?: string
+}
+
 /** Report types */
 
 export type AppraisalReportRequestInput = Omit<
