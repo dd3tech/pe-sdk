@@ -87,6 +87,6 @@ export class Base {
         }
       }
     }
-    throw new Error('Request failed after max retries')
+    throw new ApiError('Request failed after max retries')
   }
 }
