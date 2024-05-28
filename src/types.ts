@@ -23,7 +23,7 @@ export type AppraisalReportRequestOutput = {
     lowerValueRange: number
     comparables: any[]
   }
-  property: {
+  property: AppraisalRequestInput
     latitude: number
     longitude: number
     propertyType: string
