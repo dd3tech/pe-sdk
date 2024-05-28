@@ -5,7 +5,7 @@ export type PriceEngineVersion = 'v8' | 'v9'
  */
 
 export type AppraisalReportRequestOutput = {
-  appraisalRent: {
+  appraisalRent: AppraisalRequestOutput
     value: number
     valuePerSqm: number
     upperValueRangePerSqm: number
