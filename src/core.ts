@@ -1,8 +1,10 @@
 import { ClientOptions, BaseFetcher } from './fetcher'
-import {
+import { APPRAISAL_TYPES, APPRAISAL_PROPERTY_TYPES } from './utils'
+import type {
   AppraisalReportRequestInput,
   AppraisalReportRequestOutput,
   AppraisalRequestInput,
+  AppraisalRequestInputVariable,
   AppraisalRequestOutput
 } from './types'
 
@@ -22,6 +24,46 @@ export class PriceEngine extends BaseFetcher {
     return this.request(`/${this.resourceName}/`, {
       method: 'POST',
       body: JSON.stringify(request)
+    })
+  }
+
+  public async getAppraisalApartmentRent(
+    request: AppraisalRequestInputVariable
+  ): Promise<AppraisalRequestOutput> {
+    return this.getAppraisal({
+      ...request,
+      appraisalType: APPRAISAL_TYPES.RENT,
+      propertyType: APPRAISAL_PROPERTY_TYPES.APARTMENT
+    })
+  }
+
+  public async getAppraisalApartmentSale(
+    request: AppraisalRequestInputVariable
+  ): Promise<AppraisalRequestOutput> {
+    return this.getAppraisal({
+      ...request,
+      appraisalType: APPRAISAL_TYPES.SALE,
+      propertyType: APPRAISAL_PROPERTY_TYPES.APARTMENT
+    })
+  }
+
+  public async getAppraisalHouseRent(
+    request: AppraisalRequestInputVariable
+  ): Promise<AppraisalRequestOutput> {
+    return this.getAppraisal({
+      ...request,
+      appraisalType: APPRAISAL_TYPES.RENT,
+      propertyType: APPRAISAL_PROPERTY_TYPES.HOUSE
+    })
+  }
+
+  public async getAppraisalHouseSale(
+    request: AppraisalRequestInputVariable
+  ): Promise<AppraisalRequestOutput> {
+    return this.getAppraisal({
+      ...request,
+      appraisalType: APPRAISAL_TYPES.SALE,
+      propertyType: APPRAISAL_PROPERTY_TYPES.HOUSE
     })
   }
 
