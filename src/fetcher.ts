@@ -1,78 +1,91 @@
-import fetch, { RequestInit } from 'node-fetch'
+import fetch from 'isomorphic-unfetch'
+import { PriceEngineVersion } from './types'
 
-export type Fetcher = typeof fetch
-
-export interface HttpClientOptions {
-  injectedFetcher?: Fetcher
+export interface ClientOptions {
   apiKey: string
-  baseURL: string
+  version?: PriceEngineVersion | undefined
+  baseURL?: string
+  timeout?: number
+  maxRetries?: number
 }
 
-export class HttpClient {
-  private fetcher: Fetcher
-  private apiKey: string
-  private baseURL: string
+export class Base {
+  public readonly version: PriceEngineVersion = 'v9'
+  private readonly apiKey: string
+  private readonly baseURL: string
+  private readonly timeout: number
+  private readonly maxRetries: number
 
-  constructor({ injectedFetcher, baseURL, apiKey }: HttpClientOptions) {
-    if (!injectedFetcher) {
-      this.fetcher = fetch
-    } else {
-      this.fetcher = injectedFetcher
-    }
+  constructor(clientOptions: ClientOptions) {
+    const {
+      PRICE_ENGINE_API_KEY = '',
+      PRICE_ENGINE_BASE_URL = 'https://api.dd360.mx'
+    } = process?.env || {}
 
-    this.baseURL = baseURL
-    this.apiKey = apiKey
+    this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
+    this.apiKey = clientOptions.apiKey || PRICE_ENGINE_API_KEY
+    this.version = clientOptions.version || this.version
+    this.timeout = clientOptions.timeout || 5000
+    this.maxRetries = clientOptions.maxRetries || 2
   }
 
-  private getURL(path: string): string {
-    return `${this.baseURL}${path}`
+  private getApiKey(): string {
+    return this.apiKey
+  }
+
+  public getVersion(): PriceEngineVersion {
+    return this.version
+  }
+
+  private getURL(endpoint: string): string {
+    return `${this.baseURL}${endpoint}`
   }
 
   private getAuthorizationHeader(): string {
-    return `Bearer ${this.apiKey}`
+    return `Bearer ${this.getApiKey()}`
   }
 
-  async get<T>(url: string, options?: RequestInit): Promise<T> {
-    const response = await this.fetcher(this.getURL(url), {
+  private async requestWithTimeout<T>(
+    url: string,
+    options: RequestInit
+  ): Promise<T> {
+    const controller = new AbortController()
+    const id = setTimeout(() => controller.abort(), this.timeout)
+    const response: Response = await fetch(url, {
       ...options,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.getAuthorizationHeader(),
-        ...options?.headers
-      }
+      signal: controller.signal
     })
-
-    return response.json()
+    clearTimeout(id)
+    return response.json() as T
   }
 
-  async post<T>(url: string, body: any, options?: RequestInit): Promise<T> {
-    const response = await this.fetcher(this.getURL(url), {
+  protected async request<T>(
+    endpoint: string,
+    options?: RequestInit
+  ): Promise<T> {
+    const url: string = this.getURL(endpoint)
+    const headers = {
+      Authorization: this.getAuthorizationHeader(),
+      'Content-Type': 'application/json'
+    }
+    const config: RequestInit = {
       ...options,
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.getAuthorizationHeader(),
-        ...options?.headers
+      headers
+    }
+
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      try {
+        const response = await this.requestWithTimeout<Response>(url, config)
+        if (response.ok) {
+          return response.json() as T
+        }
+        throw new Error(response.statusText)
+      } catch (error) {
+        if (attempt === this.maxRetries) {
+          throw error
+        }
       }
-    })
-
-    return response.json()
-  }
-
-  async put<T>(url: string, body: any, options?: RequestInit): Promise<T> {
-    const response = await this.fetcher(this.getURL(url), {
-      ...options,
-      method: 'PUT',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.getAuthorizationHeader(),
-        ...options?.headers
-      }
-    })
-
-    return response.json()
+    }
+    throw new Error('Request failed after max retries')
   }
 }

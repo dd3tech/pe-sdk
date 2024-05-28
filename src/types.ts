@@ -4,6 +4,67 @@ export type PriceEngineVersion = 'v8' | 'v9'
  * Appraisals types
  */
 
+export type AppraisalReportRequestOutput = {
+  appraisalRent: {
+    value: number
+    valuePerSqm: number
+    upperValueRangePerSqm: number
+    lowerValueRangePerSqm: number
+    upperValueRange: number
+    lowerValueRange: number
+    comparables: any[]
+  }
+  appraisalSale: {
+    value: number
+    valuePerSqm: number
+    upperValueRangePerSqm: number
+    lowerValueRangePerSqm: number
+    upperValueRange: number
+    lowerValueRange: number
+    comparables: any[]
+  }
+  property: {
+    latitude: number
+    longitude: number
+    propertyType: string
+    lotSurface: number
+    constructionArea: number
+    yearBuilt: number
+    bathrooms: number
+    parkingSpaces: number
+    floor: number | null
+    isNewProbAvg: number
+    hasView: number
+    withComps: number
+    m2PrivateTerrace: number
+    unitAmenities: {
+      hasRooftop: boolean
+      hasServiceRoom: boolean
+    }
+    developmentAmenities: {
+      hasGym: boolean
+      hasPool: boolean
+      hasSurveillance: boolean
+      hasJacuzzi: boolean
+      isCondominium: boolean
+      hasGarden: boolean
+    }
+  }
+  capitalGain: {
+    currentCapGain: number
+    capGainTimeSeries: Record<string, number>
+    currentPrice: number
+    m2PricePerQuarter: Record<string, number>
+  }
+}
+
+export type AppraisalReportRequestInput = {
+  address: string
+  region: string
+  lotSurface: number
+  constructionArea: number
+  propertyType: string
+}
 export type Comparable = {
   id?: string
   urlAd?: string
@@ -18,7 +79,7 @@ export type Comparable = {
   dissimilarityToTarget?: number
 }
 
-export interface AppraisalResponse {
+export interface AppraisalRequestOutput {
   value: number
   valuePerSqm: number
   upperValueRangePerSqm: number
@@ -56,7 +117,7 @@ export interface DevelopmentAmenities {
   hasGarden: boolean
 }
 
-export type AppraisalPayload = {
+export type AppraisalRequestInput = {
   latitude: number
   longitude: number
   lotSurface: number
