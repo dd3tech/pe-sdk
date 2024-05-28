@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/dd3tech/pe-sdk/compare/v1.4.0...v1.5.0) (2024-05-28)
+
+
+### Features
+
+* add new appraisal methods ([#6](https://github.com/dd3tech/pe-sdk/issues/6)) ([227609e](https://github.com/dd3tech/pe-sdk/commit/227609ef083fb68b963c2aff1f82781ed1cc33be))
+
 # [1.4.0](https://github.com/dd3tech/pe-sdk/compare/v1.3.0...v1.4.0) (2024-05-28)
 
 
