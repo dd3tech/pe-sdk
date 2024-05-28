@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/dd3tech/pe-sdk/compare/v1.3.0...v1.4.0) (2024-05-28)
+
+
+### Features
+
+* **core:** implemented client config and some methods ([#5](https://github.com/dd3tech/pe-sdk/issues/5)) ([0f80071](https://github.com/dd3tech/pe-sdk/commit/0f8007133b8f275cd38fd4ad5b54d75cf412fd4c))
+
 # [1.3.0](https://github.com/dd3tech/pe-sdk/compare/v1.2.0...v1.3.0) (2024-05-28)
 
 
