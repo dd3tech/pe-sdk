@@ -1,7 +1,7 @@
 {
   "name": "pe-sdk",
   "version": "1.1.0",
-  "description": "The official Typescript SDK for the Price Engine API",
+  "description": "The official Typescript/Javascript SDK for the Price Engine API",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,8 +35,7 @@
     "build:types": "tsc",
     "build": "tsup ./src --config tsup.config.ts",
     "format": "prettier --write src/**/*.ts",
-    "format:check": "prettier --check src/**/*.ts",
-    "release": "semantic-release"
+    "format:check": "prettier --check src/**/*.ts"
   },
   "dependencies": {
     "node-fetch": "3.3.2"
