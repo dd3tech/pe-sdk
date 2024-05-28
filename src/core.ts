@@ -1,18 +1,24 @@
 import ApiError from './error'
+import { type Fetcher, HttpClient } from './fetcher'
 import type { PriceEngineVersion } from './types'
+
+const {
+  PRICE_ENGINE_API_KEY = '',
+  PRICE_ENGINE_BASE_URL = 'https://api.dd360.mx'
+} = process?.env || {}
 
 export interface ClientOptions {
   /**
    * Defaults to process.env['PRICE_ENGINE_API_KEY'].
    */
-  apiKey: string
+  apiKey?: string | undefined
 
   /**
    * The API version to use.
    *
    * @default 'v9'
    */
-  version?: PriceEngineVersion
+  version?: PriceEngineVersion | undefined
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -36,7 +42,7 @@ export interface ClientOptions {
    * If not provided, we use `node-fetch` on Node.js and otherwise expect that `fetch` is
    * defined globally.
    */
-  fetch?: any | undefined
+  fetch?: Fetcher | undefined
 
   /**
    * The maximum number of times that the client will retry a request in case of a
@@ -51,8 +57,15 @@ export interface ClientOptions {
  */
 export class PriceEngine {
   private clientConfig: ClientOptions
+  private httpClient: HttpClient
 
-  constructor({ apiKey = '', version = 'v9', ...rest }: ClientOptions) {
+  constructor({
+    apiKey = PRICE_ENGINE_API_KEY,
+    version = 'v9',
+    baseURL = PRICE_ENGINE_BASE_URL,
+    fetch,
+    ...rest
+  }: ClientOptions) {
     if (!apiKey || apiKey === undefined) {
       throw new ApiError('API Key is required')
     }
@@ -60,12 +73,19 @@ export class PriceEngine {
     this.clientConfig = {
       apiKey,
       version,
+      baseURL,
       ...rest
     }
+
+    this.httpClient = new HttpClient({
+      injectedFetcher: fetch ?? undefined,
+      baseURL,
+      apiKey
+    })
   }
 
   public getApiKey(): string {
-    return this.clientConfig.apiKey
+    return this.clientConfig.apiKey!
   }
 
   public getVersion(): PriceEngineVersion {
