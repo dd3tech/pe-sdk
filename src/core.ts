@@ -9,7 +9,7 @@ import {
 /*
  * This is the API Client to interact with our Price Engine API.
  */
-export class PriceEngine extends Base {
+export class PriceEngine extends BaseFetcher {
   private readonly resourceName = 'appraisals'
 
   constructor(props: ClientOptions) {
