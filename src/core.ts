@@ -70,4 +70,8 @@ export class PriceEngine {
   public getVersion(): PriceEngineVersion {
     return this.clientConfig.version!
   }
+
+  public getBaseURL(): string {
+    return this.clientConfig.baseURL!
+  }
 }
