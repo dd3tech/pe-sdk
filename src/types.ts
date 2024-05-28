@@ -75,6 +75,11 @@ export type AppraisalRequestInput = {
   developmentAmenities?: DevelopmentAmenities
 }
 
+export type AppraisalRequestInputVariable = Omit<
+  AppraisalRequestInput,
+  'appraisalType' | 'propertyType'
+>
+
 /** Report types */
 
 export type AppraisalReportRequestInput = Omit<
