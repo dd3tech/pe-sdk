@@ -1,70 +1,6 @@
 export type PriceEngineVersion = 'v8' | 'v9'
 
-/**
- * Appraisals types
- */
-
-export type AppraisalReportRequestOutput = {
-  appraisalRent: AppraisalRequestOutput
-    value: number
-    valuePerSqm: number
-    upperValueRangePerSqm: number
-    lowerValueRangePerSqm: number
-    upperValueRange: number
-    lowerValueRange: number
-    comparables: any[]
-  }
-  appraisalSale: AppraisalRequestOutput
-    value: number
-    valuePerSqm: number
-    upperValueRangePerSqm: number
-    lowerValueRangePerSqm: number
-    upperValueRange: number
-    lowerValueRange: number
-    comparables: any[]
-  }
-  property: AppraisalRequestInput
-    latitude: number
-    longitude: number
-    propertyType: string
-    lotSurface: number
-    constructionArea: number
-    yearBuilt: number
-    bathrooms: number
-    parkingSpaces: number
-    floor: number | null
-    isNewProbAvg: number
-    hasView: number
-    withComps: number
-    m2PrivateTerrace: number
-    unitAmenities: {
-      hasRooftop: boolean
-      hasServiceRoom: boolean
-    }
-    developmentAmenities: {
-      hasGym: boolean
-      hasPool: boolean
-      hasSurveillance: boolean
-      hasJacuzzi: boolean
-      isCondominium: boolean
-      hasGarden: boolean
-    }
-  }
-  capitalGain: {
-    currentCapGain: number
-    capGainTimeSeries: Record<string, number>
-    currentPrice: number
-    m2PricePerQuarter: Record<string, number>
-  }
-}
-
-export type AppraisalReportRequestInput = {
-  address: string
-  region: string
-  lotSurface: number
-  constructionArea: number
-  propertyType: string
-}
+/** Appraisals types */
 export type Comparable = {
   id?: string
   urlAd?: string
@@ -137,4 +73,23 @@ export type AppraisalRequestInput = {
   m2PrivateTerrace?: number
   hasView?: number
   developmentAmenities?: DevelopmentAmenities
+}
+
+/** Report types */
+
+export type AppraisalReportRequestInput = Omit<
+  AppraisalRequestInput,
+  'appraisalType'
+>
+
+export type AppraisalReportRequestOutput = {
+  appraisalRent: AppraisalRequestOutput
+  appraisalSale: AppraisalRequestOutput
+  property: AppraisalRequestInput
+  capitalGain: {
+    currentCapGain: number
+    capGainTimeSeries: Record<string, number>
+    currentPrice: number
+    m2PricePerQuarter: Record<string, number>
+  }
 }
