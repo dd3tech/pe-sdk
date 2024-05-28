@@ -1,10 +1,22 @@
 {
-  "name": "pe-sdk",
+  "name": "@dd360/pe-sdk",
   "version": "1.0.0",
-  "type": "commonjs",
   "description": "The official Typescript SDK for the Price Engine API",
-  "types": "dist/index.d.ts",
+  "type": "module",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core.js",
+      "require": "./dist/core.js",
+      "types": "./dist/core.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dd3tech/pe-sdk"
@@ -20,7 +32,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "swc ./src -d dist --strip-leading-paths && tsc --emitDeclarationOnly",
+    "build:types": "tsc",
+    "build": "tsup ./src --config tsup.config.ts",
     "format": "prettier --write src/**/*.ts",
     "format:check": "prettier --check src/**/*.ts"
   },
@@ -30,10 +43,9 @@
   "devDependencies": {
     "@types/node": "18.11.18",
     "@types/node-fetch": "2.6.11",
-    "@swc/cli": "0.3.12",
-    "@swc/core": "1.5.7",
     "prettier": "3.2.5",
     "ts-node": "10.9.2",
+    "tsup": "^8.0.2",
     "typescript": "5.4.5"
   }
 }

@@ -1,23 +1,28 @@
 {
-  "include": ["src", "tests"],
   "compilerOptions": {
+    "target": "ES2015",
+    "module": "ESNext",
     "outDir": "./dist",
-    "target": "es2020",
-    "lib": ["es2020"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "declaration": true,
-    "baseUrl": "./",
+    "rootDir": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@pe/*": ["src/*"]
+      "@/*": ["src/*"]
     },
-    "skipLibCheck": true
+    "sourceMap": true,
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true
   },
-  "exclude": ["node_modules"],
   "ts-node": {
+    "experimentalSpecifierResolution": "explicit",
     "swc": true,
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  }
+    "esm": true
+  },
+
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
