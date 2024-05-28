@@ -7,11 +7,11 @@
 This SDK provides convenient access to the Price Engine REST API from TypeScript or JavaScript.
 <br/>
 
-**[Stable v1](https://dd360.mx/)**
+**[Unstable v1](https://dd360.mx/)**
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dd3tech/pe-sdk)
-[![npm latest package](https://img.shields.io/npm/v/dd360-ds/latest.svg)](https://www.npmjs.com/package/dd360-ds)
-[![npm downloads](https://img.shields.io/npm/dm/dd360-ds)](https://www.npmjs.com/package/dd360-ds)
+[![npm latest package](https://img.shields.io/npm/v/pe-sdk/latest.svg)](https://www.npmjs.com/package/pe-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/pe-sdk)](https://www.npmjs.com/package/pe-sdk)
 [![conventional Commits](https://img.shields.io/badge/conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![nodejs](https://img.shields.io/badge/nodejs-v18-43853d.svg)](https://nodejs.org)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -26,11 +26,11 @@ This SDK provides convenient access to the Price Engine REST API from TypeScript
 ## 📲 Installation
 
 ```bash
-npm install @dd360/pe-sdk
+npm install pe-sdk
 ```
 ```bash
-yarn add @dd360/pe-sdk
+yarn add pe-sdk
 ```
 ```bash
-pnpm i @dd360/pe-sdk
+pnpm i pe-sdk
 ```
