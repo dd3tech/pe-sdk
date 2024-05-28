@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/dd3tech/pe-sdk/compare/v1.2.0...v1.3.0) (2024-05-28)
+
+
+### Features
+
+* add initial fetcher to set apiKey and baseUrl ([13fa2e2](https://github.com/dd3tech/pe-sdk/commit/13fa2e254ce42e2071ab971cfff74677b3873e5e))
+
 # [1.2.0](https://github.com/dd3tech/pe-sdk/compare/v1.1.0...v1.2.0) (2024-05-28)
 
 
