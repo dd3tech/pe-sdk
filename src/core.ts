@@ -1,3 +1,4 @@
+import ApiError from './error'
 import type { PriceEngineVersion } from './types'
 
 export interface ClientOptions {
@@ -53,7 +54,7 @@ export class PriceEngine {
 
   constructor({ apiKey = '', version = 'v9', ...rest }: ClientOptions) {
     if (!apiKey || apiKey === undefined) {
-      throw new Error('API Key is required')
+      throw new ApiError('API Key is required')
     }
 
     this.clientConfig = {
