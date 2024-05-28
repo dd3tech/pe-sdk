@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/dd3tech/pe-sdk/compare/v1.1.0...v1.2.0) (2024-05-28)
+
+
+### Features
+
+* add abstraction of api error ([97a7d9e](https://github.com/dd3tech/pe-sdk/commit/97a7d9e71e927a1e5aa379b190ae2abcaa6429da))
+* add abstraction of api error [#3](https://github.com/dd3tech/pe-sdk/issues/3) ([c4a7e52](https://github.com/dd3tech/pe-sdk/commit/c4a7e52bb78a3fbfa06f9ef41488a6f5d8ff2809))
+
 # [1.1.0](https://github.com/dd3tech/pe-sdk/compare/v1.0.1...v1.1.0) (2024-05-28)
 
 
