@@ -35,7 +35,8 @@
     "build:types": "tsc",
     "build": "tsup ./src --config tsup.config.ts",
     "format": "prettier --write src/**/*.ts",
-    "format:check": "prettier --check src/**/*.ts"
+    "format:check": "prettier --check src/**/*.ts",
+    "release": "semantic-release"
   },
   "dependencies": {
     "node-fetch": "3.3.2"

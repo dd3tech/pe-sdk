@@ -27,4 +27,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_URL: 'https://api.github.com'
-        run: npx semantic-release
+        run: pnpm run release
