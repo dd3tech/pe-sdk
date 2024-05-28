@@ -67,7 +67,7 @@ export class PriceEngine {
     return this.clientConfig.apiKey
   }
 
-  public getVersion(): PriceEngineVersion | undefined {
-    return this.clientConfig.version
+  public getVersion(): PriceEngineVersion {
+    return this.clientConfig.version!
   }
 }
