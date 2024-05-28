@@ -1,6 +1,6 @@
 {
   "name": "pe-sdk",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "The official Typescript SDK for the Price Engine API",
   "type": "module",
   "main": "dist/index.js",

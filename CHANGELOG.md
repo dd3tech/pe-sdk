@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dd3tech/pe-sdk/compare/v1.0.1...v1.1.0) (2024-05-28)
+
+
+### Features
+
+* add method to expose base url ([1b52816](https://github.com/dd3tech/pe-sdk/commit/1b5281665e9522609cfe9bf2018c70827aaff58a))
+
 ## [1.0.1](https://github.com/dd3tech/pe-sdk/compare/v1.0.0...v1.0.1) (2024-05-28)
 
 
