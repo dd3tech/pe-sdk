@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/dd3tech/pe-sdk/compare/v1.5.0...v1.6.0) (2024-05-28)
+
+
+### Features
+
+* add appraisal coverage method ([#7](https://github.com/dd3tech/pe-sdk/issues/7)) ([9eef862](https://github.com/dd3tech/pe-sdk/commit/9eef862482966d3bdfe0206904e31606c651cdca))
+
 # [1.5.0](https://github.com/dd3tech/pe-sdk/compare/v1.4.0...v1.5.0) (2024-05-28)
 
 
