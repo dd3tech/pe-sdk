@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/dd3tech/pe-sdk/compare/v1.6.0...v1.6.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* move conditional of catch error and return data of the object ([72dbf86](https://github.com/dd3tech/pe-sdk/commit/72dbf860c4ebe87f47fa3f5a2899b74834e47e89))
+
 # [1.6.0](https://github.com/dd3tech/pe-sdk/compare/v1.5.0...v1.6.0) (2024-05-28)
 
 
