@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/dd3tech/pe-sdk/compare/v1.6.1...v1.6.2) (2024-05-29)
+
+
+### Bug Fixes
+
+* validate if exist apk ([10a81c7](https://github.com/dd3tech/pe-sdk/commit/10a81c7a5f3b41f1769e65953fa7f1ba9b305979))
+
 ## [1.6.1](https://github.com/dd3tech/pe-sdk/compare/v1.6.0...v1.6.1) (2024-05-29)
 
 
