@@ -1,3 +1,12 @@
+## [1.7.1](https://github.com/dd3tech/pe-sdk/compare/v1.7.0...v1.7.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* add 408 status on error handler ([9f692f2](https://github.com/dd3tech/pe-sdk/commit/9f692f2230ec4250469318b961d6805e5b6fa365))
+* remove unused else statement ([fae2f50](https://github.com/dd3tech/pe-sdk/commit/fae2f50b9e4c4c26213404e3e65534887bfcb59a))
+* validate instance instead of cast ([1196935](https://github.com/dd3tech/pe-sdk/commit/1196935e8a13a4a3ce209f908b5df98a15e20fd9))
+
 # [1.7.0](https://github.com/dd3tech/pe-sdk/compare/v1.6.2...v1.7.0) (2024-05-29)
 
 
