@@ -85,14 +85,17 @@ export class BaseFetcher {
         ...options,
         signal: controller.signal
       })
+
       if (!response?.ok) {
         throw ApiError.createError(response.statusText, response.status)
       }
+
       return response.json() as Promise<T>
     } catch (error: unknown) {
-      if ((error as Error)?.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new ApiError('Request timed out', 408)
       }
+
       throw error
     } finally {
       clearTimeout(id)
