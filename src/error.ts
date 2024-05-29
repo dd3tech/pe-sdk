@@ -21,6 +21,8 @@ class ApiError extends Error {
         return new ApiError(`Bad Request: ${message}`, 400)
       case 401:
         return new ApiError(`Unauthorized: ${message}`, 401)
+      case 402:
+        return new ApiError(`Payment Required: ${message}`, 402)
       case 403:
         return new ApiError(`Forbidden: ${message}`, 403)
       case 404:

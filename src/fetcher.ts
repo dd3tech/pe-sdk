@@ -49,17 +49,16 @@ export class BaseFetcher {
   private readonly maxRetries: number
 
   constructor(clientOptions: ClientOptions = {}) {
-    this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
-    this.version = clientOptions.version || 'v9'
-    this.timeout = clientOptions.timeout || 5000
-    this.maxRetries = clientOptions.maxRetries || 2
-
     const apk = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
     if (!apk || apk === undefined) {
       throw new ApiError('API Key is required', 500)
     } else {
       this.apiKey = apk
     }
+    this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
+    this.version = clientOptions.version || 'v9'
+    this.timeout = clientOptions.timeout || 5000
+    this.maxRetries = clientOptions.maxRetries || 2
   }
 
   public getVersion(): PriceEngineVersion {
@@ -86,22 +85,17 @@ export class BaseFetcher {
         ...options,
         signal: controller.signal
       })
-      clearTimeout(id)
-
-      if (!response.ok) {
-        throw ApiError.createError(
-          `Request failed with status ${response.status}: ${response.statusText}`,
-          response.status
-        )
+      if (!response?.ok) {
+        throw ApiError.createError(response.statusText, response.status)
       }
-
       return response.json() as Promise<T>
-    } catch (error: any) {
-      clearTimeout(id)
-      if (error.name === 'AbortError') {
+    } catch (error: unknown) {
+      if ((error as Error)?.name === 'AbortError') {
         throw new ApiError('Request timed out', 408)
       }
       throw error
+    } finally {
+      clearTimeout(id)
     }
   }
 

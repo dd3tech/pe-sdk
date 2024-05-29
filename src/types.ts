@@ -81,8 +81,8 @@ export type AppraisalRequestInputVariable = Omit<
 >
 
 export type AppraisalInputCoverage = {
-  latitude: string
-  longitude: string
+  latitude: number
+  longitude: number
 }
 
 export interface AppraisalOutputCoverage {
