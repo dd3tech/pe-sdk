@@ -52,9 +52,9 @@ export class BaseFetcher {
     const apk = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
     if (!apk || apk === undefined) {
       throw new ApiError('API Key is required', 500)
-    } else {
-      this.apiKey = apk
     }
+
+    this.apiKey = apk
     this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
     this.version = clientOptions.version || 'v9'
     this.timeout = clientOptions.timeout || 5000
