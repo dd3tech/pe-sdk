@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-unfetch'
-
 import ApiError from './error'
 import type { PriceEngineVersion } from './types'
 
@@ -9,57 +8,29 @@ const {
 } = process?.env || {}
 
 export interface ClientOptions {
-  /**
-   * Defaults to process.env['PRICE_ENGINE_API_KEY'].
-   */
-  apiKey?: string | undefined
-  /**
-   * The API version to use.
-   *
-   * @default 'v9'
-   */
-  version?: PriceEngineVersion | undefined
-  /**
-   * Override the default base URL for the API, e.g., "https://api.dd360.mx"
-   *
-   * Defaults to process.env['PRICE_ENGINE_BASE_URL'].
-   */
+  apiKey?: string
+  version?: PriceEngineVersion
   baseURL?: string
-  /**
-   * The maximum amount of time (in milliseconds) that the client should wait for a response
-   * from the server before timing out a single request.
-   *
-   * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
-   * much longer than this timeout before the promise succeeds or fails.
-   * @default 5000
-   */
   timeout?: number
-  /**
-   * The maximum number of times that the client will retry a request in case of a
-   * temporary failure, like a network error or a 5XX error from the server.
-   * @default 2
-   */
   maxRetries?: number
 }
 
 export class BaseFetcher {
-  public readonly version: PriceEngineVersion = 'v9'
+  public readonly version: PriceEngineVersion
   private readonly apiKey: string
   private readonly baseURL: string
   private readonly timeout: number
   private readonly maxRetries: number
 
-  constructor(clientOptions: ClientOptions) {
-    this.baseURL = clientOptions?.baseURL || PRICE_ENGINE_BASE_URL
-    this.version = clientOptions?.version || this.version
-    this.timeout = clientOptions?.timeout || 5000
-    this.maxRetries = clientOptions?.maxRetries || 2
+  constructor(clientOptions: ClientOptions = {}) {
+    this.apiKey = clientOptions.apiKey || PRICE_ENGINE_API_KEY
+    this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
+    this.version = clientOptions.version || 'v9'
+    this.timeout = clientOptions.timeout || 5000
+    this.maxRetries = clientOptions.maxRetries || 2
 
-    const apk = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
-    if (!apk || apk === undefined) {
-      throw new ApiError('API Key is required')
-    } else {
-      this.apiKey = apk
+    if (!this.apiKey) {
+      throw new ApiError('API Key is required', 401)
     }
   }
 
@@ -81,35 +52,42 @@ export class BaseFetcher {
   ): Promise<T> {
     const controller = new AbortController()
     const id = setTimeout(() => controller.abort(), this.timeout)
-    const response: Response = await fetch(url, {
-      ...options,
-      signal: controller.signal
-    })
 
-    clearTimeout(id)
-    if (!response?.ok) {
-      throw new ApiError(
-        `Request failed with status ${response?.status} and message: ${response?.statusText}`
-      )
+    try {
+      const response: Response = await fetch(url, {
+        ...options,
+        signal: controller.signal
+      })
+      clearTimeout(id)
+
+      if (!response.ok) {
+        throw new ApiError(
+          `Request failed with status ${response.status}: ${response.statusText}`,
+          response.status
+        )
+      }
+
+      return response.json() as Promise<T>
+    } catch (error: any) {
+      clearTimeout(id)
+      if (error.name === 'AbortError') {
+        throw new ApiError('Request timed out', 408)
+      }
+      throw error
     }
-
-    return response?.json() as T
   }
 
   protected async request<T>(
     endpoint: string,
     options?: RequestInit
   ): Promise<T> {
-    const url: string = this.getURL(endpoint)
+    const url = this.getURL(endpoint)
     const headers = {
       ...options?.headers,
       Authorization: this.getAuthorizationHeader(),
       'Content-Type': 'application/json'
     }
-    const config: RequestInit = {
-      ...options,
-      headers
-    }
+    const config: RequestInit = { ...options, headers }
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
@@ -119,9 +97,11 @@ export class BaseFetcher {
         if (attempt === this.maxRetries) {
           throw error
         }
+        const delay = Math.pow(2, attempt) * 100
+        await new Promise((res) => setTimeout(res, delay))
       }
     }
 
-    throw new ApiError('Request failed after max retries')
+    throw new ApiError('Request failed after max retries', 500)
   }
 }
