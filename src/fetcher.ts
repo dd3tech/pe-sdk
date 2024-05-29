@@ -49,7 +49,6 @@ export class BaseFetcher {
   private readonly maxRetries: number
 
   constructor(clientOptions: ClientOptions = {}) {
-    this.apiKey = clientOptions.apiKey || PRICE_ENGINE_API_KEY
     this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
     this.version = clientOptions.version || 'v9'
     this.timeout = clientOptions.timeout || 5000
