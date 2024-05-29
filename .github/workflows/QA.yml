@@ -33,3 +33,18 @@ jobs:
 
       - name: Run Prettier
         run: pnpm format:check
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Install
+        uses: ./.github/common-actions/install
+
+      - name: Run Tests
+        run: pnpm test
+        env:
+          PRICE_ENGINE_API_KEY: ${{ secrets.PRICE_ENGINE_API_KEY }}
