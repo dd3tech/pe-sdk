@@ -61,7 +61,7 @@ export class BaseFetcher {
       clearTimeout(id)
 
       if (!response.ok) {
-        throw new ApiError(
+        throw ApiError.createError(
           `Request failed with status ${response.status}: ${response.statusText}`,
           response.status
         )
