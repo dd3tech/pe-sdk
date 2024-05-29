@@ -48,11 +48,11 @@ export class BaseFetcher {
   private readonly maxRetries: number
 
   constructor(clientOptions: ClientOptions) {
-    this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
-    this.apiKey = clientOptions.apiKey || PRICE_ENGINE_API_KEY
-    this.version = clientOptions.version || this.version
-    this.timeout = clientOptions.timeout || 5000
-    this.maxRetries = clientOptions.maxRetries || 2
+    this.baseURL = clientOptions?.baseURL || PRICE_ENGINE_BASE_URL
+    this.apiKey = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
+    this.version = clientOptions?.version || this.version
+    this.timeout = clientOptions?.timeout || 5000
+    this.maxRetries = clientOptions?.maxRetries || 2
   }
 
   private getApiKey(): string {
@@ -83,6 +83,12 @@ export class BaseFetcher {
     })
 
     clearTimeout(id)
+    if (!response?.ok) {
+      throw new ApiError(
+        `Request failed with status ${response.status} and message: ${response.statusText}`
+      )
+    }
+
     return response?.json() as T
   }
 
@@ -103,12 +109,8 @@ export class BaseFetcher {
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
-        const response = await this.requestWithTimeout<Response>(url, config)
-        if (response?.ok) {
-          return response.json() as T
-        }
-
-        throw new ApiError(response?.statusText)
+        const response = await this.requestWithTimeout<{ data: T }>(url, config)
+        return response?.data || (response as T)
       } catch (error) {
         if (attempt === this.maxRetries) {
           throw error
