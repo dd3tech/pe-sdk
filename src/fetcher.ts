@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-unfetch'
-
 import ApiError from './error'
 import type { PriceEngineVersion } from './types'
 
@@ -43,24 +42,23 @@ export interface ClientOptions {
 }
 
 export class BaseFetcher {
-  public readonly version: PriceEngineVersion = 'v9'
+  public readonly version: PriceEngineVersion
   private readonly apiKey: string
   private readonly baseURL: string
   private readonly timeout: number
   private readonly maxRetries: number
 
-  constructor(clientOptions: ClientOptions) {
-    this.baseURL = clientOptions?.baseURL || PRICE_ENGINE_BASE_URL
-    this.version = clientOptions?.version || this.version
-    this.timeout = clientOptions?.timeout || 5000
-    this.maxRetries = clientOptions?.maxRetries || 2
-
+  constructor(clientOptions: ClientOptions = {}) {
     const apk = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
     if (!apk || apk === undefined) {
-      throw new ApiError('API Key is required')
+      throw new ApiError('API Key is required', 500)
     } else {
       this.apiKey = apk
     }
+    this.baseURL = clientOptions.baseURL || PRICE_ENGINE_BASE_URL
+    this.version = clientOptions.version || 'v9'
+    this.timeout = clientOptions.timeout || 5000
+    this.maxRetries = clientOptions.maxRetries || 2
   }
 
   public getVersion(): PriceEngineVersion {
@@ -81,35 +79,37 @@ export class BaseFetcher {
   ): Promise<T> {
     const controller = new AbortController()
     const id = setTimeout(() => controller.abort(), this.timeout)
-    const response: Response = await fetch(url, {
-      ...options,
-      signal: controller.signal
-    })
 
-    clearTimeout(id)
-    if (!response?.ok) {
-      throw new ApiError(
-        `Request failed with status ${response?.status} and message: ${response?.statusText}`
-      )
+    try {
+      const response: Response = await fetch(url, {
+        ...options,
+        signal: controller.signal
+      })
+      if (!response?.ok) {
+        throw ApiError.createError(response.statusText, response.status)
+      }
+      return response.json() as Promise<T>
+    } catch (error: unknown) {
+      if ((error as Error)?.name === 'AbortError') {
+        throw new ApiError('Request timed out', 408)
+      }
+      throw error
+    } finally {
+      clearTimeout(id)
     }
-
-    return response?.json() as T
   }
 
   protected async request<T>(
     endpoint: string,
     options?: RequestInit
   ): Promise<T> {
-    const url: string = this.getURL(endpoint)
+    const url = this.getURL(endpoint)
     const headers = {
       ...options?.headers,
       Authorization: this.getAuthorizationHeader(),
       'Content-Type': 'application/json'
     }
-    const config: RequestInit = {
-      ...options,
-      headers
-    }
+    const config: RequestInit = { ...options, headers }
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
@@ -119,9 +119,11 @@ export class BaseFetcher {
         if (attempt === this.maxRetries) {
           throw error
         }
+        const delay = Math.pow(2, attempt) * 100
+        await new Promise((res) => setTimeout(res, delay))
       }
     }
 
-    throw new ApiError('Request failed after max retries')
+    throw new ApiError('Request failed after max retries', 500)
   }
 }
