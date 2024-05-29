@@ -91,7 +91,6 @@ export interface AppraisalOutputCoverage {
 }
 
 /** Report types */
-
 export type AppraisalReportRequestInput = Omit<
   AppraisalRequestInput,
   'appraisalType'

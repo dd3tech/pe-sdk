@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch'
+
 import ApiError from './error'
-import { PriceEngineVersion } from './types'
+import type { PriceEngineVersion } from './types'
 
 const {
   PRICE_ENGINE_API_KEY = '',
@@ -30,6 +31,7 @@ export interface ClientOptions {
    *
    * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
    * much longer than this timeout before the promise succeeds or fails.
+   * @default 5000
    */
   timeout?: number
   /**
@@ -55,10 +57,6 @@ export class BaseFetcher {
     this.maxRetries = clientOptions?.maxRetries || 2
   }
 
-  private getApiKey(): string {
-    return this.apiKey
-  }
-
   public getVersion(): PriceEngineVersion {
     return this.version
   }
@@ -68,7 +66,7 @@ export class BaseFetcher {
   }
 
   private getAuthorizationHeader(): string {
-    return `Bearer ${this.getApiKey()}`
+    return `Bearer ${this.apiKey}`
   }
 
   private async requestWithTimeout<T>(
@@ -85,7 +83,7 @@ export class BaseFetcher {
     clearTimeout(id)
     if (!response?.ok) {
       throw new ApiError(
-        `Request failed with status ${response.status} and message: ${response.statusText}`
+        `Request failed with status ${response?.status} and message: ${response?.statusText}`
       )
     }
 
