@@ -55,8 +55,11 @@ export class BaseFetcher {
     this.timeout = clientOptions.timeout || 5000
     this.maxRetries = clientOptions.maxRetries || 2
 
-    if (!this.apiKey) {
-      throw new ApiError('API Key is required', 401)
+    const apk = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
+    if (!apk || apk === undefined) {
+      throw new ApiError('API Key is required', 500)
+    } else {
+      this.apiKey = apk
     }
   }
 
