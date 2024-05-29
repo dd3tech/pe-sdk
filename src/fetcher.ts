@@ -8,10 +8,36 @@ const {
 } = process?.env || {}
 
 export interface ClientOptions {
+  /**
+   * Defaults to process.env['PRICE_ENGINE_API_KEY'].
+   */
   apiKey?: string
+  /**
+   * The API version to use.
+   *
+   * @default 'v9'
+   */
   version?: PriceEngineVersion
+  /**
+   * Override the default base URL for the API, e.g., "https://api.dd360.mx"
+   *
+   * Defaults to process.env['PRICE_ENGINE_BASE_URL'].
+   */
   baseURL?: string
+  /**
+   * The maximum amount of time (in milliseconds) that the client should wait for a response
+   * from the server before timing out a single request.
+   *
+   * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
+   * much longer than this timeout before the promise succeeds or fails.
+   * @default 5000
+   */
   timeout?: number
+  /**
+   * The maximum number of times that the client will retry a request in case of a
+   * temporary failure, like a network error or a 5XX error from the server.
+   * @default 2
+   */
   maxRetries?: number
 }
 
