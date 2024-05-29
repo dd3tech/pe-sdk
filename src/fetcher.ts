@@ -11,13 +11,13 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['PRICE_ENGINE_API_KEY'].
    */
-  apiKey?: string
+  apiKey?: string | undefined
   /**
    * The API version to use.
    *
    * @default 'v9'
    */
-  version?: PriceEngineVersion
+  version?: PriceEngineVersion | undefined
   /**
    * Override the default base URL for the API, e.g., "https://api.dd360.mx"
    *
