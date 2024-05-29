@@ -51,10 +51,16 @@ export class BaseFetcher {
 
   constructor(clientOptions: ClientOptions) {
     this.baseURL = clientOptions?.baseURL || PRICE_ENGINE_BASE_URL
-    this.apiKey = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
     this.version = clientOptions?.version || this.version
     this.timeout = clientOptions?.timeout || 5000
     this.maxRetries = clientOptions?.maxRetries || 2
+
+    const apk = clientOptions?.apiKey || PRICE_ENGINE_API_KEY
+    if (!apk || apk === undefined) {
+      throw new ApiError('API Key is required')
+    } else {
+      this.apiKey = apk
+    }
   }
 
   public getVersion(): PriceEngineVersion {
