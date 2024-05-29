@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/dd3tech/pe-sdk/compare/v1.6.2...v1.7.0) (2024-05-29)
+
+
+### Features
+
+* error handler and exponential retry ([#8](https://github.com/dd3tech/pe-sdk/issues/8)) ([6c8a016](https://github.com/dd3tech/pe-sdk/commit/6c8a0163eee239bb8df4dccb08c98703f443067c))
+
 ## [1.6.2](https://github.com/dd3tech/pe-sdk/compare/v1.6.1...v1.6.2) (2024-05-29)
 
 
