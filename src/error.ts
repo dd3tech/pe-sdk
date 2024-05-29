@@ -27,6 +27,8 @@ class ApiError extends Error {
         return new ApiError(`Forbidden: ${message}`, 403)
       case 404:
         return new ApiError(`Not Found: ${message}`, 404)
+      case 408:
+        return new ApiError(`Request Timeout: ${message}`, 408)
       case 500:
         return new ApiError(`Internal Server Error: ${message}`, 500)
       default:
