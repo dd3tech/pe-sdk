@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/dd3tech/pe-sdk/compare/v1.7.1...v1.7.2) (2024-06-04)
+
+
+### Bug Fixes
+
+* set constructor props argument as optional ([#12](https://github.com/dd3tech/pe-sdk/issues/12)) ([a64b416](https://github.com/dd3tech/pe-sdk/commit/a64b416e10ea20aa7fba8053d1f71eb2a83c7144))
+
 ## [1.7.1](https://github.com/dd3tech/pe-sdk/compare/v1.7.0...v1.7.1) (2024-05-29)
 
 
