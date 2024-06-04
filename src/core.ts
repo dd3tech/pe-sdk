@@ -18,7 +18,7 @@ import type {
  * This is the API Client to interact with our Price Engine API.
  */
 export class PriceEngine extends BaseFetcher {
-  constructor(props: ClientOptions) {
+  constructor(props?: ClientOptions) {
     super(props)
   }
 
