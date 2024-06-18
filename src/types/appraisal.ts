@@ -1,5 +1,3 @@
-export type PriceEngineVersion = 'v8' | 'v9'
-
 /** Appraisals types */
 export type Comparable = {
   id?: string
@@ -79,11 +77,6 @@ export type AppraisalRequestInputVariable = Omit<
   AppraisalRequestInput,
   'appraisalType' | 'propertyType'
 >
-
-export type AppraisalInputCoverage = {
-  latitude: number
-  longitude: number
-}
 
 export interface AppraisalOutputCoverage {
   hasCoverage: boolean
