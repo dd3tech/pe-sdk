@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/dd3tech/pe-sdk/compare/v1.7.2...v2.0.0) (2024-06-18)
+
+
+* feat!: Use new Appraisal or Metric class instead (#14) ([a12928e](https://github.com/dd3tech/pe-sdk/commit/a12928e3297f81189d88090e9058baf1ab92e2c8)), closes [#14](https://github.com/dd3tech/pe-sdk/issues/14)
+
+
+### BREAKING CHANGES
+
+* Use new Appraisal or Metric class instead
+
 ## [1.7.2](https://github.com/dd3tech/pe-sdk/compare/v1.7.1...v1.7.2) (2024-06-04)
 
 
