@@ -13,8 +13,9 @@ import type {
   AppraisalOutputCoverage,
   CommonRequestInput
 } from './types'
+
 /**
- *  @deprecated This class is deprecated and will be removed in the next major version. Use Appraisal or Metrics instead.
+ *  @deprecated This class is deprecated and will be removed in the next major version. Use new Appraisal or Metrics instead.
  */
 export class PriceEngine extends BaseFetcher {
   constructor(props?: ClientOptions) {
