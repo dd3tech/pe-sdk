@@ -1,9 +1,9 @@
-import { ClientOptions, BaseFetcher } from './fetcher'
+import { ClientOptions, BaseFetcher } from '../fetcher'
 import {
   APPRAISAL_TYPES,
   APPRAISAL_PROPERTY_TYPES,
   API_RESOURCES_PATH
-} from './utils'
+} from '../utils'
 import type {
   AppraisalReportRequestInput,
   AppraisalReportRequestOutput,
@@ -12,11 +12,11 @@ import type {
   AppraisalRequestOutput,
   AppraisalOutputCoverage,
   CommonRequestInput
-} from './types'
-/**
- *  @deprecated This class is deprecated and will be removed in the next major version. Use Appraisal or Metrics instead.
+} from '../types'
+/*
+ * This is the API Client to interact with our Price Engine API.
  */
-export class PriceEngine extends BaseFetcher {
+export class Appraisal extends BaseFetcher {
   constructor(props?: ClientOptions) {
     super(props)
   }

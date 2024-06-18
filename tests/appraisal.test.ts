@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { PriceEngine } from '@/core'
+import { Appraisal } from '@/apis'
 import { ClientOptions } from '@/fetcher'
 import ApiError from '@/error'
 import type { AppraisalOutputCoverage } from '@/types'
@@ -10,30 +10,31 @@ const clientOptions: ClientOptions = {
   maxRetries: 2
 }
 
-describe('PriceEngine', () => {
+describe('Appraisal', () => {
   let fetchMock: any
   beforeEach(() => {
     fetchMock = vi.fn()
     global.fetch = fetchMock
   })
 
-  it('should create an instance of PriceEngine', () => {
-    const fetcher = new PriceEngine(clientOptions)
-    expect(fetcher).toBeInstanceOf(PriceEngine)
+  it('should create an instance of Appraisal', () => {
+    const fetcher = new Appraisal(clientOptions)
+    expect(fetcher).toBeInstanceOf(Appraisal)
     expect(fetcher.getVersion()).toBe('v9')
   })
+
   it('should timeout and throw an error if the request exceeds the timeout', async () => {
     fetchMock.mockImplementation(
       () =>
         new Promise((resolve) => setTimeout(() => resolve({ ok: true }), 10))
     )
-    const priceEngine = new PriceEngine(clientOptions)
+    const appraisalEngine = new Appraisal(clientOptions)
     const requestBody = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876
     }
     try {
-      await priceEngine.getAppraisalCoverage(requestBody)
+      await appraisalEngine.getAppraisalCoverage(requestBody)
     } catch (error) {
       expect(fetchMock).toHaveBeenCalledTimes(1)
       expect(error).toBeInstanceOf(ApiError)
@@ -46,13 +47,13 @@ describe('PriceEngine', () => {
     fetchMock.mockRejectedValue(
       new ApiError('Request failed after max retries')
     )
-    const priceEngine = new PriceEngine(clientOptions)
+    const appraisalEngine = new Appraisal(clientOptions)
     const requestBody = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876
     }
     try {
-      await priceEngine.getAppraisalCoverage(requestBody)
+      await appraisalEngine.getAppraisalCoverage(requestBody)
     } catch (error) {
       expect(fetchMock).toHaveBeenCalledTimes(clientOptions.maxRetries + 1)
       expect(error).toBeInstanceOf(ApiError)
@@ -73,8 +74,8 @@ describe('PriceEngine', () => {
       ok: true,
       json: () => Promise.resolve({ data: response })
     })
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisalCoverage(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisalCoverage(request)
     expect(result).toEqual(
       expect.objectContaining({
         hasCoverage: expect.any(Boolean),
@@ -93,9 +94,9 @@ describe('PriceEngine', () => {
       status: 400,
       statusText: 'Bad Request'
     })
-    const priceEngine = new PriceEngine(clientOptions)
+    const appraisalEngine = new Appraisal(clientOptions)
     await expect(
-      priceEngine.getAppraisalCoverage(request as any)
+      appraisalEngine.getAppraisalCoverage(request as any)
     ).rejects.toThrow('Bad Request: Bad Request')
   })
 
@@ -121,8 +122,8 @@ describe('PriceEngine', () => {
       json: () => Promise.resolve({ data: response })
     })
 
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisal(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisal(request)
     expect(result).toEqual(
       expect.objectContaining({
         value: expect.any(Number),
@@ -156,8 +157,8 @@ describe('PriceEngine', () => {
       json: () => Promise.resolve({ data: response })
     })
 
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisalApartmentRent(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisalApartmentRent(request)
     expect(result).toEqual(
       expect.objectContaining({
         value: expect.any(Number),
@@ -195,8 +196,8 @@ describe('PriceEngine', () => {
       json: () => Promise.resolve({ data: response })
     })
 
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisalReport(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisalReport(request)
     expect(result).toEqual(
       expect.objectContaining({
         appraisalRent: expect.objectContaining({
@@ -231,8 +232,8 @@ describe('PriceEngine', () => {
       json: () => Promise.resolve({ data: response })
     })
 
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisalApartmentSale(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisalApartmentSale(request)
     expect(result).toEqual(
       expect.objectContaining({
         value: expect.any(Number),
@@ -266,8 +267,8 @@ describe('PriceEngine', () => {
       json: () => Promise.resolve({ data: response })
     })
 
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisalHouseRent(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisalHouseRent(request)
     expect(result).toEqual(
       expect.objectContaining({
         value: expect.any(Number),
@@ -301,8 +302,8 @@ describe('PriceEngine', () => {
       json: () => Promise.resolve({ data: response })
     })
 
-    const priceEngine = new PriceEngine(clientOptions)
-    const result = await priceEngine.getAppraisalHouseSale(request)
+    const appraisalEngine = new Appraisal(clientOptions)
+    const result = await appraisalEngine.getAppraisalHouseSale(request)
     expect(result).toEqual(
       expect.objectContaining({
         value: expect.any(Number),
