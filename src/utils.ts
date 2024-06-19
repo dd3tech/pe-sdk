@@ -10,7 +10,7 @@ export const APPRAISAL_PROPERTY_TYPES = {
 
 export const API_RESOURCES_PATH = {
   APPRAISALS: 'appraisals',
-  METRICS: 'metrics'
+  METRICS: 'metrics',
 } as const
 
 export const METRIC_RESOURCES_PATH = {
