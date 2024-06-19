@@ -11,7 +11,8 @@ import type {
   AppraisalRequestInputVariable,
   AppraisalRequestOutput,
   AppraisalOutputCoverage,
-  CommonRequestInput
+  CommonRequestInput,
+  Comparable
 } from '../types'
 /*
  * This is the API Client to interact with our Price Engine API.
@@ -19,6 +20,15 @@ import type {
 export class Appraisal extends BaseFetcher {
   constructor(props?: ClientOptions) {
     super(props)
+  }
+
+  public async getComparables(
+    body: AppraisalRequestInput
+  ): Promise<Comparable> {
+    return this.request(`/${API_RESOURCES_PATH.APPRAISALS}/comparables`, {
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
   }
 
   public async getAppraisalCoverage(

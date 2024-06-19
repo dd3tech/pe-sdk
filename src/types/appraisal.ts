@@ -1,7 +1,11 @@
 /** Appraisals types */
-export type Comparable = {
+export interface Comparable {
   id?: string
   urlAd?: string
+  propertyId?: string
+  propertyCode?: string
+  latitude?: number
+  longitude?: number
   surfaceTotal?: number
   terrainSurface?: number
   builtYear?: number
@@ -11,6 +15,11 @@ export type Comparable = {
   isNewPropertyProb?: number
   pricePerSquareMeter?: number
   dissimilarityToTarget?: number
+  title?: string
+  street?: string
+  neighborhood?: string
+  state?: string
+  municipality?: string
 }
 
 export interface AppraisalRequestOutput {
@@ -71,6 +80,11 @@ export type AppraisalRequestInput = {
   m2PrivateTerrace?: number
   hasView?: number
   developmentAmenities?: DevelopmentAmenities
+  isNewPropertyProb?: number
+  isHouse?: number
+  isSale?: number
+  floorNumber?: number
+  bedrooms?: number
 }
 
 export type AppraisalRequestInputVariable = Omit<

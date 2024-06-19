@@ -7,7 +7,7 @@
 This SDK provides convenient access to the Price Engine REST API from TypeScript or JavaScript.
 <br/>
 
-**[Unstable v1](https://dd360.mx/)**
+**[Stable v2](https://dd360.mx/)**
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dd3tech/pe-sdk)
 [![npm latest package](https://img.shields.io/npm/v/pe-sdk/latest.svg)](https://www.npmjs.com/package/pe-sdk)
