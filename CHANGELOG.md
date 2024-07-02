@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/dd3tech/pe-sdk/compare/v2.0.0...v2.1.0) (2024-07-02)
+
+
+### Features
+
+* add response optional fields ([#16](https://github.com/dd3tech/pe-sdk/issues/16)) ([1dc14ed](https://github.com/dd3tech/pe-sdk/commit/1dc14ed875c6d7daea4eb6c2d2f7e85418bd3746))
+
 # [2.0.0](https://github.com/dd3tech/pe-sdk/compare/v1.7.2...v2.0.0) (2024-06-18)
 
 
