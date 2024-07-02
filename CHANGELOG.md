@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/dd3tech/pe-sdk/compare/v2.1.0...v2.2.0) (2024-07-02)
+
+
+### Features
+
+* change traffic index response ([#17](https://github.com/dd3tech/pe-sdk/issues/17)) ([e17ab96](https://github.com/dd3tech/pe-sdk/commit/e17ab96b984bbe2ad6b567f5ab63d10e3f68cb2a))
+
 # [2.1.0](https://github.com/dd3tech/pe-sdk/compare/v2.0.0...v2.1.0) (2024-07-02)
 
 
