@@ -1,10 +1,8 @@
-import { describe } from "node:test";
-import { beforeEach, expect, it, vi } from "vitest";
+import { beforeEach, expect, it, vi, describe } from 'vitest'
 
-import { ClientOptions } from '@/fetcher'
-import { Metric } from '@/apis'
-import ApiError from '@/error'
-
+import { ClientOptions } from '../src/fetcher'
+import { Metric } from '../src/apis/metric'
+import ApiError from '../src/error'
 
 const clientOptions: ClientOptions = {
   baseURL: 'https://api.dd360.mx',
@@ -13,72 +11,71 @@ const clientOptions: ClientOptions = {
 }
 
 describe('Metric', () => {
-
-    let fetchMock: any
-    beforeEach(() => {
+  let fetchMock: any
+  beforeEach(() => {
     fetchMock = vi.fn()
     global.fetch = fetchMock
-    })
+  })
 
-    it('should create an instance of Metric', () => {
-        const fetcher = new Metric(clientOptions)
-        expect(fetcher).toBeInstanceOf(Metric)
-        expect(fetcher.getVersion()).toBe('v9')
-    })
+  it('should create an instance of Metric', () => {
+    const fetcher = new Metric(clientOptions)
+    expect(fetcher).toBeInstanceOf(Metric)
+    expect(fetcher.getVersion()).toBe('v9')
+  })
 
-    it('should timeout and throw an error if the request exceeds the timeout', async () => {
+  it('should timeout and throw an error if the request exceeds the timeout', async () => {
     fetchMock.mockImplementation(
-        () =>
-        new Promise((resolve) =>
-            setTimeout(() => resolve({ ok: true }), 10)
-        )
+      () =>
+        new Promise((resolve) => setTimeout(() => resolve({ ok: true }), 10))
     )
     const metric = new Metric(clientOptions)
     const requestBody = {
-        latitude: 19.41712064426177,
-        longitude: -99.17343830677876
+      latitude: 19.41712064426177,
+      longitude: -99.17343830677876
     }
     try {
-        await metric.getWalkability(requestBody)
+      await metric.getWalkability(requestBody)
     } catch (error) {
-        expect(fetchMock).toHaveBeenCalledTimes(1)
-        expect(error).toBeInstanceOf(ApiError)
-        expect(error.message).toBe('Request timed out')
-        expect(error.status).toBe(408)
+      expect(fetchMock).toHaveBeenCalledTimes(1)
+      expect(error).toBeInstanceOf(ApiError)
+      expect(error.message).toBe('Request timed out')
+      expect(error.status).toBe(408)
     }
-    })
+  })
 
-    it('should retry the request according to maxRetries option', async () => {
+  it('should retry the request according to maxRetries option', async () => {
     fetchMock.mockRejectedValue(
-        new ApiError('Request failed after max retries')
+      new ApiError('Request failed after max retries', 400)
     )
     const metric = new Metric(clientOptions)
     const requestBody = {
-        latitude: 19.41712064426177,
-        longitude: -99.17343830677876
+      latitude: 19.41712064426177,
+      longitude: -99.17343830677876
     }
     try {
-        await metric.getCurrentPrice(requestBody)
+      await metric.getCurrentPrice(requestBody)
     } catch (error) {
-        expect(fetchMock).toHaveBeenCalledTimes(clientOptions.maxRetries + 1)
-        expect(error).toBeInstanceOf(ApiError)
-        expect(error.message).toBe('Request failed after max retries')
-    }
-    })
-
-    it('should get walkability metric', async () => {
-      const request = {
-        latitude: 19.41712064426177,
-        longitude: -99.17343830677876
-      }
- 
-      const appraisalEngine = new Metric(clientOptions)
-      const result = await appraisalEngine.getWalkability(request)
-      expect(result).toEqual(
-        expect.objectContaining({
-          walkability: expect.any(String),
-          score: expect.any(Number)
-        })
+      expect(fetchMock).toHaveBeenCalledTimes(
+        (clientOptions?.maxRetries ?? 0) + 1
       )
-    })
+      expect(error).toBeInstanceOf(ApiError)
+      expect(error.message).toBe('Request failed after max retries')
+    }
+  })
+
+  it('should get walkability metric', async () => {
+    const request = {
+      latitude: 19.41712064426177,
+      longitude: -99.17343830677876
+    }
+
+    const appraisalEngine = new Metric(clientOptions)
+    const result = await appraisalEngine.getWalkability(request)
+    expect(result).toEqual(
+      expect.objectContaining({
+        walkability: expect.any(String),
+        score: expect.any(Number)
+      })
+    )
+  })
 })
