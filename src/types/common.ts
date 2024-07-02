@@ -4,3 +4,8 @@ export type CommonRequestInput = {
   latitude: number
   longitude: number
 }
+
+/**
+ * Array of keys of an object.
+ */
+export type KeysOf<T> = (keyof T)[]
