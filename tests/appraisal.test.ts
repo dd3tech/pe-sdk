@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { Appraisal } from '@/apis'
-import { ClientOptions } from '@/fetcher'
-import ApiError from '@/error'
-import type { AppraisalOutputCoverage } from '@/types'
+import { Appraisal } from '../src/apis'
+import { ClientOptions } from '../src/fetcher'
+import ApiError from '../src/error'
+import type { AppraisalOutputCoverage } from '../src/types'
 
 const clientOptions: ClientOptions = {
   baseURL: 'https://api.dd360.mx',
@@ -45,7 +45,7 @@ describe('Appraisal', () => {
 
   it('should retry the request according to maxRetries option', async () => {
     fetchMock.mockRejectedValue(
-      new ApiError('Request failed after max retries')
+      new ApiError('Request failed after max retries', 400)
     )
     const appraisalEngine = new Appraisal(clientOptions)
     const requestBody = {
@@ -55,7 +55,9 @@ describe('Appraisal', () => {
     try {
       await appraisalEngine.getAppraisalCoverage(requestBody)
     } catch (error) {
-      expect(fetchMock).toHaveBeenCalledTimes(clientOptions.maxRetries + 1)
+      expect(fetchMock).toHaveBeenCalledTimes(
+        (clientOptions?.maxRetries ?? 0) + 1
+      )
       expect(error).toBeInstanceOf(ApiError)
       expect(error.message).toBe('Request failed after max retries')
     }
