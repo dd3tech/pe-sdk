@@ -2,7 +2,6 @@
   "name": "pe-sdk",
   "version": "2.2.0",
   "description": "The official Typescript/Javascript SDK for the Price Engine API",
-  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -45,7 +44,8 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "isomorphic-unfetch": "4.0.2"
+    "isomorphic-unfetch": "4.0.2",
+    "unfetch": "^5.0.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
