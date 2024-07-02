@@ -1,3 +1,5 @@
+import type { KeysOf } from './common'
+
 /** Appraisals types */
 export type Comparable = {
   id?: string
@@ -71,6 +73,11 @@ export type AppraisalRequestInput = {
   m2PrivateTerrace?: number
   hasView?: number
   developmentAmenities?: DevelopmentAmenities
+  /*
+   * you can specify which
+   * specific fields from `AppraisalRequestOutput`
+   * you are interested in receiving in the response. */
+  fields?: KeysOf<AppraisalRequestOutput>
 }
 
 export type AppraisalRequestInputVariable = Omit<
