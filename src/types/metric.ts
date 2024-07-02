@@ -2,9 +2,16 @@ interface TimeSeries {
   [date: string]: number
 }
 
+export interface TrafficIndex {
+  label: string
+  score: number
+  level: string
+}
+
 export interface TrafficResponse {
   traffic: string
-  trafficIndex: Record<string, number>
+  score: number
+  trafficIndex: Array<TrafficIndex>
 }
 
 export interface CapitalGainResponse {
