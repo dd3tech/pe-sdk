@@ -1,6 +1,6 @@
 export type PriceEngineVersion = 'v8' | 'v9'
 
-export type CommonRequestInput = {
+export type CoordinatesRequestInput = {
   latitude: number
   longitude: number
 }

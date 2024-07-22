@@ -1,6 +1,8 @@
-import fetch from 'isomorphic-unfetch'
+import 'dotenv/config'
+import fetch from 'cross-fetch'
 import ApiError from './error'
 import type { PriceEngineVersion } from './types'
+import Joi from 'joi'
 
 const {
   PRICE_ENGINE_API_KEY = '',
@@ -58,6 +60,15 @@ export class BaseFetcher {
     this.version = clientOptions.version || 'v9'
     this.timeout = clientOptions.timeout || 5000
     this.maxRetries = clientOptions.maxRetries || 2
+  }
+
+  public validate(schema: Joi.ObjectSchema, data: any) {
+    const { error } = schema.validate(data, { abortEarly: false })
+    if (error) {
+      throw new Error(
+        `Validation error: ${error.details.map((d) => d.message).join(', ')}`
+      )
+    }
   }
 
   public getVersion(): PriceEngineVersion {
