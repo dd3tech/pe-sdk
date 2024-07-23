@@ -6,7 +6,7 @@ import type {
   ProximityToWorkResponse,
   TrafficResponse,
   WalkabilityResponse,
-  CommonRequestInput
+  CoordinatesRequestInput
 } from '../types'
 import { API_RESOURCES_PATH, METRIC_RESOURCES_PATH } from '../utils'
 
@@ -16,7 +16,7 @@ export class Metric extends BaseFetcher {
   }
 
   public async getTraffic(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<TrafficResponse> {
     return this.request(
       `/${API_RESOURCES_PATH.METRICS}/${METRIC_RESOURCES_PATH.TRAFFIC}`,
@@ -28,7 +28,7 @@ export class Metric extends BaseFetcher {
   }
 
   public async getCapitalGain(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<CapitalGainResponse> {
     return this.request(
       `/${API_RESOURCES_PATH.METRICS}/${METRIC_RESOURCES_PATH.CAPITAL_GAIN}`,
@@ -40,7 +40,7 @@ export class Metric extends BaseFetcher {
   }
 
   public async getCostOfLiving(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<CostOfLivingResponse> {
     return this.request(
       `/${API_RESOURCES_PATH.METRICS}/${METRIC_RESOURCES_PATH.COST_OF_LIVING}`,
@@ -52,7 +52,7 @@ export class Metric extends BaseFetcher {
   }
 
   public async getWalkability(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<WalkabilityResponse> {
     return this.request(
       `/${API_RESOURCES_PATH.METRICS}/${METRIC_RESOURCES_PATH.WALKABILITY}`,
@@ -64,7 +64,7 @@ export class Metric extends BaseFetcher {
   }
 
   public async getCurrentPrice(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<CurrentPriceResponse> {
     return this.request(
       `/${API_RESOURCES_PATH.METRICS}/${METRIC_RESOURCES_PATH.CURRENT_PRICE}`,
@@ -76,7 +76,7 @@ export class Metric extends BaseFetcher {
   }
 
   public async getProximityToWork(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<ProximityToWorkResponse> {
     return this.request(
       `/${API_RESOURCES_PATH.METRICS}/${METRIC_RESOURCES_PATH.PROXIMITY_TO_WORK}`,

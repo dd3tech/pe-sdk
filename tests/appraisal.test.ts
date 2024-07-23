@@ -2,7 +2,12 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Appraisal } from '../src/apis'
 import { ClientOptions } from '../src/fetcher'
 import ApiError from '../src/error'
-import type { AppraisalOutputCoverage } from '../src/types'
+import {
+  AppraisalType,
+  CoordinatesRequestInput,
+  PropertyType,
+  type AppraisalOutputCoverage
+} from '../src/types'
 
 const clientOptions: ClientOptions = {
   baseURL: 'https://api.dd360.mx',
@@ -29,7 +34,7 @@ describe('Appraisal', () => {
         new Promise((resolve) => setTimeout(() => resolve({ ok: true }), 10))
     )
     const appraisalEngine = new Appraisal(clientOptions)
-    const requestBody = {
+    const requestBody: CoordinatesRequestInput = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876
     }
@@ -48,7 +53,7 @@ describe('Appraisal', () => {
       new ApiError('Request failed after max retries', 400)
     )
     const appraisalEngine = new Appraisal(clientOptions)
-    const requestBody = {
+    const requestBody: CoordinatesRequestInput = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876
     }
@@ -64,7 +69,7 @@ describe('Appraisal', () => {
   })
 
   it('should get appraisal coverage', async () => {
-    const request = {
+    const request: CoordinatesRequestInput = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876
     }
@@ -106,10 +111,10 @@ describe('Appraisal', () => {
     const request = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876,
-      lotSurface: 644,
-      constructionArea: 702,
-      propertyType: 'house',
-      appraisalType: 'sale'
+      lotSurface: 702,
+      constructionArea: 644,
+      propertyType: PropertyType.House,
+      appraisalType: AppraisalType.Sale
     }
     const response = {
       value: 29869257.6,
@@ -142,8 +147,8 @@ describe('Appraisal', () => {
     const request = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876,
-      lotSurface: 644,
-      constructionArea: 702
+      lotSurface: 702,
+      constructionArea: 644
     }
     const response = {
       value: 154496.16,
@@ -178,10 +183,10 @@ describe('Appraisal', () => {
     const request = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876,
-      lotSurface: 644,
-      constructionArea: 702,
-      propertyType: 'house',
-      appraisalType: 'sale'
+      lotSurface: 702,
+      constructionArea: 644,
+      propertyType: PropertyType.House,
+      appraisalType: AppraisalType.Sale
     }
     const response = {
       appraisalRent: {
@@ -218,8 +223,8 @@ describe('Appraisal', () => {
     const request = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876,
-      lotSurface: 644,
-      constructionArea: 702
+      lotSurface: 702,
+      constructionArea: 644
     }
     const response = {
       value: 35681256,
@@ -253,8 +258,8 @@ describe('Appraisal', () => {
     const request = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876,
-      lotSurface: 644,
-      constructionArea: 702
+      lotSurface: 702,
+      constructionArea: 644
     }
     const response = {
       value: 176567.04,
@@ -287,8 +292,8 @@ describe('Appraisal', () => {
     const request = {
       latitude: 19.41712064426177,
       longitude: -99.17343830677876,
-      lotSurface: 644,
-      constructionArea: 702
+      lotSurface: 702,
+      constructionArea: 644
     }
     const response = {
       value: 29869257.6,

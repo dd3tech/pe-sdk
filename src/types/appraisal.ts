@@ -1,4 +1,5 @@
 import type { KeysOf } from './common'
+import { AppraisalType, PropertyType } from './constants'
 
 /** Appraisals types */
 export type Comparable = {
@@ -26,49 +27,74 @@ export interface AppraisalRequestOutput {
 }
 
 export interface UnitAmenities {
-  hasBalcony: boolean
-  hasFurniture: boolean
-  hasAirConditioner: boolean
-  hasCellar: boolean
-  hasInternet: boolean
-  hasRooftop: boolean
-  petsAllowed: boolean
-  hasServiceRoom: boolean
+  hasServiceRoom?: boolean
+  hasRooftop?: boolean
+  hasBalcony?: boolean
+  hasFurniture?: boolean
+  hasAirConditioner?: boolean
+  hasCellar?: boolean
+  hasInternet?: boolean
+  petsAllowed?: boolean
 }
 
 export interface DevelopmentAmenities {
-  hasBusinessCenter: boolean
-  hasElevator: boolean
-  hasEventsHall: boolean
-  hasGym: boolean
-  hasKidsPlayground: boolean
-  hasPool: boolean
-  hasSpecialFacilities: boolean
-  hasSurveillance: boolean
-  hasCafeteria: boolean
-  hasGrill: boolean
-  hasJacuzzi: boolean
-  hasSharedRooftop: boolean
-  isCondominium: boolean
-  hasGarden: boolean
+  hasGarden?: boolean
+  hasGym?: boolean
+  isCondominium?: boolean
+  hasElevator?: boolean
+  hasJacuzzi?: boolean
+  hasPool?: boolean
+  hasSurveillance?: boolean
+  hasBusinessCenter?: boolean
+  hasEventsHall?: boolean
+  hasKidsPlayground?: boolean
+  hasSpecialFacilities?: boolean
+  hasCafeteria?: boolean
+  hasGrill?: boolean
+  hasSharedRooftop?: boolean
 }
 
 export type AppraisalRequestInput = {
-  latitude: number
-  longitude: number
+  /**
+   * The region where the property is located.
+   * If present along with address, latitude and longitude are not required.
+   */
+  region?: string
+  /**
+   * The address of the property.
+   * If present along with region, latitude and longitude are not required.
+   */
+  address?: string
+  /**
+   * The latitude of the property. Required if region and address is not present.
+   */
+  latitude?: number
+  /**
+   * The longitude of the property. Required if region and address is not present.
+   */
+  longitude?: number
+
+  /**
+   * The surface of the property in square meters. Must be greater than constructionArea.
+   */
   lotSurface: number
+  /**
+   * The surface of the property in square meters. Must be less than lotSurface.
+   */
   constructionArea: number
-  parkingSpaces?: number
   bathrooms?: number
+  bedrooms?: number
+  parkingSpaces?: number
   yearBuilt?: number
   floor?: number
   isNewProbAvg?: number
-  propertyType?: string
-  appraisalType?: string
-  unitAmenities?: UnitAmenities
+  propertyType?: PropertyType
+  appraisalType?: AppraisalType
+  distance?: number
   /**
-   * This propertie return comparables on the response
+   * This properties return comparables on the response
    */
+  unitAmenities?: UnitAmenities
   withComps?: number
   m2PrivateTerrace?: number
   hasView?: number

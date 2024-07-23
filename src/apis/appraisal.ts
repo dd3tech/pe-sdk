@@ -1,28 +1,25 @@
 import { ClientOptions, BaseFetcher } from '../fetcher'
+import { API_RESOURCES_PATH } from '../utils'
 import {
-  APPRAISAL_TYPES,
-  APPRAISAL_PROPERTY_TYPES,
-  API_RESOURCES_PATH
-} from '../utils'
-import type {
-  AppraisalReportRequestInput,
-  AppraisalReportRequestOutput,
-  AppraisalRequestInput,
-  AppraisalRequestInputVariable,
-  AppraisalRequestOutput,
-  AppraisalOutputCoverage,
-  CommonRequestInput
+  type AppraisalReportRequestInput,
+  type AppraisalReportRequestOutput,
+  type AppraisalRequestInput,
+  type AppraisalRequestInputVariable,
+  type AppraisalRequestOutput,
+  type AppraisalOutputCoverage,
+  type CoordinatesRequestInput,
+  AppraisalType,
+  PropertyType
 } from '../types'
-/*
- * This is the API Client to interact with our Price Engine API.
- */
+import { baseRequestInputSchema } from '../validators'
+
 export class Appraisal extends BaseFetcher {
   constructor(props?: ClientOptions) {
     super(props)
   }
 
   public async getAppraisalCoverage(
-    request: CommonRequestInput
+    request: CoordinatesRequestInput
   ): Promise<AppraisalOutputCoverage> {
     return this.request(`/${API_RESOURCES_PATH.APPRAISALS}/coverage`, {
       method: 'POST',
@@ -33,6 +30,7 @@ export class Appraisal extends BaseFetcher {
   public async getAppraisal(
     request: AppraisalRequestInput
   ): Promise<AppraisalRequestOutput> {
+    this.validate(baseRequestInputSchema, request)
     return this.request(`/${API_RESOURCES_PATH.APPRAISALS}/`, {
       method: 'POST',
       body: JSON.stringify(request)
@@ -42,46 +40,51 @@ export class Appraisal extends BaseFetcher {
   public async getAppraisalApartmentRent(
     request: AppraisalRequestInputVariable
   ): Promise<AppraisalRequestOutput> {
+    this.validate(baseRequestInputSchema, request)
     return this.getAppraisal({
       ...request,
-      appraisalType: APPRAISAL_TYPES.RENT,
-      propertyType: APPRAISAL_PROPERTY_TYPES.APARTMENT
+      appraisalType: AppraisalType.Rent,
+      propertyType: PropertyType.Apartment
     })
   }
 
   public async getAppraisalApartmentSale(
     request: AppraisalRequestInputVariable
   ): Promise<AppraisalRequestOutput> {
+    this.validate(baseRequestInputSchema, request)
     return this.getAppraisal({
       ...request,
-      appraisalType: APPRAISAL_TYPES.SALE,
-      propertyType: APPRAISAL_PROPERTY_TYPES.APARTMENT
+      appraisalType: AppraisalType.Sale,
+      propertyType: PropertyType.Apartment
     })
   }
 
   public async getAppraisalHouseRent(
     request: AppraisalRequestInputVariable
   ): Promise<AppraisalRequestOutput> {
+    this.validate(baseRequestInputSchema, request)
     return this.getAppraisal({
       ...request,
-      appraisalType: APPRAISAL_TYPES.RENT,
-      propertyType: APPRAISAL_PROPERTY_TYPES.HOUSE
+      appraisalType: AppraisalType.Rent,
+      propertyType: PropertyType.House
     })
   }
 
   public async getAppraisalHouseSale(
     request: AppraisalRequestInputVariable
   ): Promise<AppraisalRequestOutput> {
+    this.validate(baseRequestInputSchema, request)
     return this.getAppraisal({
       ...request,
-      appraisalType: APPRAISAL_TYPES.SALE,
-      propertyType: APPRAISAL_PROPERTY_TYPES.HOUSE
+      appraisalType: AppraisalType.Sale,
+      propertyType: PropertyType.House
     })
   }
 
   public async getAppraisalReport(
     request: AppraisalReportRequestInput
   ): Promise<AppraisalReportRequestOutput> {
+    this.validate(baseRequestInputSchema, request)
     return this.request(`/${API_RESOURCES_PATH.APPRAISALS}/report`, {
       method: 'POST',
       body: JSON.stringify(request)
