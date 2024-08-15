@@ -62,7 +62,7 @@ export class BaseFetcher {
     this.maxRetries = clientOptions.maxRetries || 2
   }
 
-  public validate(schema: Joi.ObjectSchema, data: any) {
+  public validate<T>(schema: Joi.ObjectSchema, data: T) {
     const { error } = schema.validate(data, { abortEarly: false })
     if (error) {
       throw new Error(

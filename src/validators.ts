@@ -9,11 +9,11 @@ export const baseRequestInputSchema = Joi.object({
     'The address of the property. If present along with region, latitude and longitude are not required.'
   ),
 
-  latitude: Joi.number().description(
+  latitude: Joi.number().required().description(
     'The latitude of the property. Required if region and address is not present.'
   ),
 
-  longitude: Joi.number().description(
+  longitude: Joi.number().required().description(
     'The longitude of the property. Required if region and address is not present.'
   ),
 
