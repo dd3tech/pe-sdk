@@ -19,7 +19,6 @@ export class Comparables extends BaseFetcher {
     request: ComparablesRequestInput
   ): Promise<ComparablesRequestOutput> {
     this.validate(baseRequestInputSchema, request)
-    this
     return this.request(`/${API_RESOURCES_PATH.COMPARABLES}`, {
       method: 'POST',
       body: JSON.stringify(request)
