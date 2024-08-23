@@ -1,4 +1,4 @@
-export type PriceEngineVersion = 'v8' | 'v9'
+export type PriceEngineVersion = 'v8' | 'v9' | 'v10'
 
 export type CoordinatesRequestInput = {
   latitude: number

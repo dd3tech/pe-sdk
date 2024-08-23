@@ -1,9 +1,10 @@
 import type { KeysOf } from './common'
-import { AppraisalType, PropertyType } from './constants'
+import { AppraisalType, PropertyType, LuxuryCategory } from './constants'
 
 /** Appraisals types */
 export type Comparable = {
   id?: string
+  propertyCode?: string
   urlAd?: string
   surfaceTotal?: number
   terrainSurface?: number
@@ -52,6 +53,8 @@ export interface DevelopmentAmenities {
   hasCafeteria?: boolean
   hasGrill?: boolean
   hasSharedRooftop?: boolean
+  hasGolfClub?: boolean
+  hasWaterFront?: boolean
 }
 
 export type AppraisalRequestInput = {
@@ -104,6 +107,12 @@ export type AppraisalRequestInput = {
    * specific fields from `AppraisalRequestOutput`
    * you are interested in receiving in the response. */
   fields?: KeysOf<AppraisalRequestOutput>
+
+  /**
+   * Zone 3 Fields - PEv10
+   */
+  luxuryCategory?: LuxuryCategory
+  isZone3?: boolean
 }
 
 export type AppraisalRequestInputVariable = Omit<
@@ -114,6 +123,8 @@ export type AppraisalRequestInputVariable = Omit<
 export interface AppraisalOutputCoverage {
   hasCoverage: boolean
   cvegeo?: string
+  priceEngineVersion?: number
+  hexagonalId?: string
 }
 
 /** Report types */
