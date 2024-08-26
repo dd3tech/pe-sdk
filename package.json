@@ -1,6 +1,6 @@
 {
   "name": "pe-sdk",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "The official Typescript/Javascript SDK for the Price Engine API",
   "type": "module",
   "main": "dist/index.js",

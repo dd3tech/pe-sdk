@@ -1,3 +1,19 @@
+# [2.3.0](https://github.com/dd3tech/pe-sdk/compare/v2.2.0...v2.3.0) (2024-08-26)
+
+
+### Bug Fixes
+
+* remove commit husky ([985d744](https://github.com/dd3tech/pe-sdk/commit/985d7446d7f131dbb99f48a59e48d036caea2f49))
+* remove commit lint ([654e9e9](https://github.com/dd3tech/pe-sdk/commit/654e9e9780d6fdb7c3f6f80473de0f5a63b38c35))
+* remove commitlint ([c60d997](https://github.com/dd3tech/pe-sdk/commit/c60d9975ba81ed3b48187866e3041d6d44fe9fd6))
+* remove pre-push ([5784146](https://github.com/dd3tech/pe-sdk/commit/57841465b98db8af682a2eef6cc4985d9e37f125))
+
+
+### Features
+
+* added zone 3 support ([ad3a29f](https://github.com/dd3tech/pe-sdk/commit/ad3a29f687c53e294919977f2a1c3967c0f87f3f))
+* version 3 ([360490d](https://github.com/dd3tech/pe-sdk/commit/360490d03bd27652eb783731dfc4d894796996d6))
+
 # [2.2.0](https://github.com/dd3tech/pe-sdk/compare/v2.1.0...v2.2.0) (2024-07-02)
 
 
